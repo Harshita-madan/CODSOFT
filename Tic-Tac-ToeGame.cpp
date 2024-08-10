@@ -2,8 +2,8 @@
 #include <vector>
 using namespace std;
 
-string n1;
-string n2;
+string Player1="Player1";
+string Player2="Player2";
 int row ; 
 int col;
 char token ;
@@ -36,9 +36,8 @@ bool isMoveValid( vector<vector<char>> &board , int row , int col){
     
 }
 void playerDetails (){   
-  cout << "GAME STARTS !"<< endl;
 
-    cout<< "enter your move ( row and col ) " << endl;
+    cout<< "Enter your move ( row and col ) For example 0 0 for top left corner , 1 0 for middle row leftmost column " << endl;
     cin>>row>>col;
 
     while ( isMoveValid ( board, row , col)){
@@ -57,7 +56,7 @@ void playerDetails (){
 }
 
 void movePlayer (char token){
-    cout << "Enter your move (row and col)  For example: 0 0 for the top left corner : ";
+    cout << "Enter your move (row and col): ";
     cin >> row >> col;
     while (!isMoveValid(board, row, col)){
         cout << "Invalid move. Try again: ";
@@ -75,7 +74,7 @@ bool checkWin ( vector<vector<char>>& board , char token){
         }
     }
     
-    if(token == board[0][0] && board[0][0]==board[2][2] && board[0][0]==board[1][1] || token==board[0][2]  && board[0][2] == board[1][1] && board[0][2] == board[2][1]){
+    if(token == board[0][0] && board[0][0]==board[2][2] && board[0][0]==board[1][1] || token==board[0][2]  && board[0][2] == board[1][1] && board[0][2] == board[2][0]){
         return true;
     }
     
@@ -104,31 +103,13 @@ int main() {
     grid(board);
     displayGrid(board);
     
-    cout << "Enter first player name : "<< endl;
-    getline ( cin , n1);
-    cout << "Enter first player name : "<<endl;
-    getline(cin, n2);
+    cout << Player1 << " will play first. "<< endl ;
+    cout << "Player1 will use X "<< endl;
     cout<<endl;
+    cout << "Player2 will use 0 "<< endl;
+    token='X';
     
-    
-    cout << n1 << " will play first. "<< endl ;
-    cout << "Enter what u want to choose ( X or 0) : "<< endl;
-    cout<<endl;
-    cin >> token ;
-    
-    if (token == '0'){
-        cout << n1 << " will use 0"<< endl;
-        cout << n2 << " will use X " << endl;
-        
-    }
-    else if ( token == 'X'){
-        cout << n1 << " will use X "<< endl;
-        cout << n2 << " will use 0 " << endl; 
-    }
-    else {
-        cout<< " Invalid "<< endl;
-    }
-     playerDetails();
+    playerDetails();
      
     bool win = false;
     bool draw = false;
@@ -137,7 +118,7 @@ int main() {
         movePlayer(token);
         win = checkWin(board, token);
         if (win) {
-            cout << "Player " << (token == 'X' ? n1 : n2) << " wins! Congratulations !! " << endl;
+            cout << (token == 'X' ? Player1 : Player2) << " has won ! Keep going !! " << endl;
         } else {
             draw = checkDraw(board);
             if (draw) {
